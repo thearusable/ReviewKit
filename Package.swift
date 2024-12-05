@@ -14,7 +14,7 @@ let package = Package(
             name: "ReviewKit",
             targets: ["ReviewKit"]),
     ], dependencies: [
-        .package(url: "https://github.com/realm/SwiftLint", branch: "main")
+        .package(url: "https://github.com/realm/SwiftLint", .upToNextMajor(from: "0.57.1")),
     ],
     targets: [
         .target(
