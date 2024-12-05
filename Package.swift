@@ -7,7 +7,7 @@ let package = Package(
     name: "ReviewKit",
     defaultLocalization: "en",
     platforms: [
-        .macOS(.v10_15), .iOS(.v17), .visionOS(.v1)
+        .macOS(.v14), .iOS(.v17), .visionOS(.v1)
     ],
     products: [
         .library(
