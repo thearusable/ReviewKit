@@ -66,6 +66,7 @@ public enum AppStoreResponseError: Error {
     case invalidData
 }
 
+@MainActor
 @Observable
 class ReviewManager {
     var rating: Double
@@ -102,7 +103,7 @@ class ReviewManager {
         return numberFormatter.string(from: NSNumber(value: reviewCount)) ?? "\(Int(reviewCount))"
     }
 
-    func fetchAppStoreRating() async throws {
+    nonisolated func fetchAppStoreRating() async throws {
         print("Fetching App Store rating.")
         DispatchQueue.main.async { self.isLoading = true }
 
