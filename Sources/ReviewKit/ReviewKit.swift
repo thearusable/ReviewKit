@@ -67,7 +67,7 @@ public struct ShapeProgressView: View {
                         Image(systemName: "laurel.leading")
                             .foregroundColor(laurelColor)
                     }
-                    
+
                     Text("\(reviewManager.rating, specifier: "%.1f")")
                         .fontDesign(.rounded)
                         .foregroundColor(ratingTextColor)
@@ -79,7 +79,7 @@ public struct ShapeProgressView: View {
                 }
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                
+
                 ZStack {
                     RatingRow(count: count,
                               imageName: imageName,
@@ -108,7 +108,7 @@ public struct ShapeProgressView: View {
                         Image(systemName: "laurel.leading")
                             .foregroundColor(laurelColor)
                     }
-                    
+
                     Text("\(reviewManager.rating, specifier: "%.1f")")
                         .fontDesign(.rounded)
                         .foregroundColor(ratingTextColor)
@@ -120,7 +120,7 @@ public struct ShapeProgressView: View {
                 }
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                
+
                 if showReviewCount {
                     let reviewCountText = reviewManager.reviewCount > 0
                         ? reviewManager.localizedString(forKey: "rating.reviews.countText",
@@ -145,8 +145,12 @@ public struct ShapeProgressView: View {
                 }
 
                 if showReviewCount {
-                    Text(reviewManager.reviewCount > 0 ? "Based on \(reviewManager.reviewCount, specifier: "%.0f") reviews" : "No reviews yet")
-                        .foregroundColor(ratingCountTextColor)
+                    Text(
+                        reviewManager.reviewCount > 0
+                            ? "Based on \(reviewManager.reviewCount, specifier: "%.0f") reviews"
+                            : "No reviews yet"
+                    )
+                    .foregroundColor(ratingCountTextColor)
                 }
             }
         }
@@ -213,63 +217,97 @@ public struct RatingView: View {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: color))
                     .scaleEffect(2.0, anchor: .center)
-            }
-            else {
+            } else {
                 switch layout {
                 case .full:
                     HStack {
                         if showLaurels {
                             Image(systemName: "laurel.leading")
                         }
-                        
+
                         Text("\(reviewManager.rating, specifier: "%.1f")")
                             .fontDesign(.rounded)
-                        
+
                         if showLaurels {
                             Image(systemName: "laurel.trailing")
                         }
                     }
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    
+
                     ZStack {
-                        RatingRow(count: count, imageName: imageName, position: .background, color: color, value: $reviewManager.rating)
-                        RatingRow(count: count, imageName: imageName, position: .foreground, color: color, value: $reviewManager.rating)
+                        RatingRow(
+                            count: count,
+                            imageName: imageName,
+                            position: .background,
+                            color: color,
+                            value: $reviewManager.rating
+                        )
+                        RatingRow(
+                            count: count,
+                            imageName: imageName,
+                            position: .foreground,
+                            color: color,
+                            value: $reviewManager.rating
+                        )
                     }
-                    
+
                     if showReviewCount {
-                        Text(reviewManager.reviewCount > 0 ? "Based on \(reviewManager.reviewCount, specifier: "%.0f") reviews" : "No reviews yet")
+                        Text(
+                            reviewManager.reviewCount > 0
+                                ? "Based on \(reviewManager.reviewCount, specifier: "%.0f") reviews"
+                                : "No reviews yet"
+                        )
                     }
                 case .score:
                     HStack {
                         if showLaurels {
                             Image(systemName: "laurel.leading")
                         }
-                        
+
                         Text("\(reviewManager.rating, specifier: "%.1f")")
                             .fontDesign(.rounded)
-                        
+
                         if showLaurels {
                             Image(systemName: "laurel.trailing")
                         }
                     }
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    
+
                     if showReviewCount {
-                        Text(reviewManager.reviewCount > 0 ? "Based on \(reviewManager.reviewCount, specifier: "%.0f") reviews" : "No reviews yet")
+                        Text(
+                            reviewManager.reviewCount > 0
+                                ? "Based on \(reviewManager.reviewCount, specifier: "%.0f") reviews"
+                                : "No reviews yet"
+                        )
                     }
                 case .graphical:
                     ZStack {
-                        RatingRow(count: count, imageName: imageName, position: .background, color: color, value: $reviewManager.rating)
-                        RatingRow(count: count, imageName: imageName, position: .foreground, color: color, value: $reviewManager.rating)
+                        RatingRow(
+                            count: count,
+                            imageName: imageName,
+                            position: .background,
+                            color: color,
+                            value: $reviewManager.rating
+                        )
+                        RatingRow(
+                            count: count,
+                            imageName: imageName,
+                            position: .foreground,
+                            color: color,
+                            value: $reviewManager.rating
+                        )
                     }
-                    
+
                     if showReviewCount {
                         let reviewCountText = reviewManager.reviewCount > 0
-                        ? reviewManager.localizedString(forKey: "rating.reviews.countText", arguments: reviewManager.localizedReviewCount)
+                        ? reviewManager.localizedString(
+                            forKey: "rating.reviews.countText",
+                            arguments: reviewManager.localizedReviewCount
+                        )
                         : reviewManager.localizedString(forKey: "rating.reviews.noReviews")
-                        
+
                         Text(reviewCountText)
                     }
                 }
@@ -294,21 +332,28 @@ public struct RatingView: View {
 struct ReviewKit_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            
+
             RatingView(appId: "1586351368", layout: .full)
                 .previewDisplayName("Full Layout")
-            
-            RatingView(appId: "389801252", layout: .full,showReviewCount: false)
+
+            RatingView(appId: "389801252", layout: .full, showReviewCount: false)
                 .previewDisplayName("Layout without Review Count")
-            
+
             RatingView(appId: "389801252", layout: .score)
                 .previewDisplayName("Score Layout")
-            
+
             RatingView(appId: "389801252", layout: .graphical)
                 .previewDisplayName("Graphical Layout")
-            
-            RatingView(appId: "389801252", count: 5, imageName: "heart", color: .red, layout: .full,showReviewCount: false)
-                .previewDisplayName("Custom Style with hearts")
+
+            RatingView(
+                appId: "389801252",
+                count: 5,
+                imageName: "heart",
+                color: .red,
+                layout: .full,
+                showReviewCount: false
+            )
+            .previewDisplayName("Custom Style with hearts")
         }
         .padding()
         .previewLayout(.sizeThatFits)

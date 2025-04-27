@@ -34,7 +34,7 @@ struct RatingRow_Previews: PreviewProvider {
         Group {
             RatingRow(count: 5, imageName: "star", position: .foreground, color: .yellow, value: .constant(2.7))
                 .previewDisplayName("Foreground")
-            
+
             RatingRow(count: 5, imageName: "star", position: .background, color: .yellow, value: .constant(2.5))
                 .previewDisplayName("Background")
         }
